@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OxêMaps - Home</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: #3b82f6; /* azul divertido */
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* ocupa toda a altura da tela */
+        }
+
+        /* Título */
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-top: 50px;
+            font-size: 4rem;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            animation: bounceTitle 2s infinite;
+        }
+
+        @keyframes bounceTitle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .description {
+            color: #fefefe;
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Botões das cidades */
+        .city-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .city-buttons a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.5rem;
+            padding: 20px 40px;
+            border-radius: 15px;
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: floatButton 3s ease-in-out infinite;
+        }
+
+        .city-buttons a:hover {
+            transform: scale(1.15) rotate(-2deg);
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        @keyframes floatButton {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Ícones animados */
+        .icon {
+            position: absolute;
+            color: #fff;
+            font-size: 2rem;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #2563EB;
+            padding-top: 60px;
+            transition: 0.4s;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .sidebar a i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .sidebar a:hover {
+            background-color: #1e40af;
+            border-radius: 8px;
+        }
+
+        .sidebar.active { left: 0; }
+
+        /* Botão de abrir/fechar */
+        .open-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            background-color: #2563EB;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 8px;
+            z-index: 1100;
+            transition: 0.3s;
+        }
+
+        .open-btn:hover { background-color: #1e40af; }
+
+        .main.active { margin-left: 250px; transition: margin-left 0.4s; }
+
+        .footer {
+            background-color: #1e40af; /* azul mais escuro que o fundo */
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
+        }
+
+        .footer a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #fbbf24; /* dourado divertido no hover */
+        }
+
+        .footer-icons {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Botão de abrir/fechar sidebar -->
+<button class="open-btn" onclick="toggleSidebar()">
+    <i class="bi bi-list"></i>
+</button>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <a th:href="@{/}"><i class="bi bi-house-fill"></i> Home</a>
+    <a th:href="@{/faq}"><i class="bi bi-info-circle-fill"></i> Sobre o Projeto (FAQ)</a>
+    <a th:href="@{/contato}"><i class="bi bi-envelope-fill"></i> Contato</a>
+</div>
+
+<!-- Conteúdo principal -->
+<div id="main" class="main">
+    <h1>OxêMaps!</h1>
+    <div class="description">Conectando o Passado e o Presente utilizando a tecnologia</div>
+
+    <div class="city-buttons">
+        <a th:href="@{/recife}">Recife</a>
+        <a th:href="@{/abreu-e-lima}">Abreu e Lima</a>
+        <a th:href="@{/igarassu}">Igarassu</a>
+        <a th:href="@{/itamaraca}">Itamaracá</a>
+    </div>
+
+    <!-- Ícones animados -->
+    <i class="bi bi-umbrella-fill icon" style="left:10%; animation-delay: 0s;"></i>
+    <i class="bi bi-stars icon" style="left:25%; animation-delay: 1s;"></i>
+    <i class="bi bi-music-note-beamed icon" style="left:40%; animation-delay: 2s;"></i>
+    <i class="bi bi-sunglasses icon" style="left:55%; animation-delay: 3s;"></i>
+    <i class="bi bi-umbrella-fill icon" style="left:70%; animation-delay: 4s;"></i>
+    <i class="bi bi-stars icon" style="left:85%; animation-delay: 5s;"></i>
+    <i class="bi bi-music-note-beamed icon" style="left:15%; animation-delay: 1.5s;"></i>
+    <i class="bi bi-sunglasses icon" style="left:50%; animation-delay: 2.5s;"></i>
+</div>
+
+<!-- Rodapé -->
+<footer class="footer mt-5">
+    <div class="container text-center py-3">
+        <p>© 2025 OxêMaps. Todos os direitos reservados.</p>
+        <p>Conectando histórias, lugares e pessoas através da tecnologia.</p>
+        <div class="footer-icons">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('active');
+        document.getElementById('main').classList.toggle('active');
+    }
+</script>
+
+</body>
+</html>
