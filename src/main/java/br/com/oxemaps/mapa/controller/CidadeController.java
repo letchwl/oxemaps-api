@@ -16,4 +16,9 @@ public class CidadeController {
         return "cidades/igarassu";
     }
 
+    @GetMapping("/cidades/itamaraca")
+    public String itamaraca() {
+        return "cidades/itamaraca";
+    }
+
 }
