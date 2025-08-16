@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OxêMaps - Abreu e Lima</title>
+    <title>OxêMaps - Igarassu</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -51,38 +51,6 @@
             font-size: 1.5rem;
             margin-top: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .city-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 50px;
-            flex-wrap: wrap;
-        }
-
-        .city-buttons a {
-            text-decoration: none;
-            color: #fff;
-            font-size: 1.5rem;
-            padding: 15px 30px;
-            border-radius: 15px;
-            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: floatButton 3s ease-in-out infinite;
-            text-align: center;
-        }
-
-        .city-buttons a:hover {
-            transform: scale(1.15) rotate(-2deg);
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-
-        @keyframes floatButton {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
 
         /* Sidebar */
@@ -204,7 +172,7 @@
 
 <div id="main" class="main">
     <h1>OxêMaps!</h1>
-    <div class="description">Mapa de Abreu e Lima</div>
+    <div class="description">Mapa de Igarassu</div>
 
     <div id="map"></div>
 </div>
@@ -224,26 +192,21 @@
         document.getElementById('sidebar').classList.toggle('active');
         document.getElementById('main').classList.toggle('active');
     }
-</script>
 
-<script>
-    var map = L.map('map', {
-        zoom: 13
-    });
+    var map = L.map('map', { zoom: 13 });
 
-    // Tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Carrega o GeoJSON de Abreu e Lima
-    var abreuELima = new L.GeoJSON.AJAX('/cidades/abreu_e_lima.geojson', {
+    // Carrega o GeoJSON de Igarassu
+    var igarassu = new L.GeoJSON.AJAX('/cidades/igarassu.geojson', {
         style: function (feature) {
             return {
-                color: 'blue',
+                color: 'green',
                 weight: 2,
                 opacity: 1,
-                fillColor: 'blue',
+                fillColor: 'green',
                 fillOpacity: 0.2
             };
         }
@@ -252,13 +215,9 @@
         map.setMaxBounds(this.getBounds());
     });
 
-    // Quando o GeoJSON terminar de carregar, ajusta os limites
-    abreuELima.on('data:loaded', function() {
-        // Ajusta o mapa para caber exatamente no polígono
-        map.fitBounds(abreuELima.getBounds());
-
-        // Limita o mapa para que não seja possível arrastar para fora
-        map.setMaxBounds(abreuELima.getBounds());
+    igarassu.on('data:loaded', function() {
+        map.fitBounds(igarassu.getBounds());
+        map.setMaxBounds(igarassu.getBounds());
     });
 </script>
 </body>

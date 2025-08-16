@@ -11,4 +11,9 @@ public class CidadeController {
         return "cidades/abreu-e-lima";
     }
 
+    @GetMapping("/cidades/igarassu")
+    public String igarassu() {
+        return "cidades/igarassu";
+    }
+
 }
