@@ -1,7 +1,7 @@
-# OxêMaps 🌎✨
+# OxeMaps 🌎✨
 
 ## Objetivo
-O OxêMaps é uma plataforma que conecta informações históricas e atuais de cidades do Nordeste, permitindo explorar locais e dados de forma interativa e tecnológica.
+O OxeMaps é uma plataforma que conecta informações históricas e atuais de cidades do Nordeste, permitindo explorar locais e dados de forma interativa e tecnológica.
 
 ## Tecnologias
 - Spring Boot  
