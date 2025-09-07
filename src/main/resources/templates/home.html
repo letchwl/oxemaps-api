@@ -216,6 +216,12 @@
 <div id="main" class="main">
     <h1>OxeMaps!</h1>
     <div class="description">Conectando o Passado e o Presente utilizando a tecnologia</div>
+    <div class="visitas text-center mt-3">
+    <span class="badge bg-warning text-dark fs-5 shadow">
+        Visitas: <span th:text="${visitas}"></span>
+    </span>
+    </div>
+
 
     <div class="city-buttons">
         <a th:href="@{/cidades/abreu-e-lima}">Abreu e Lima</a>
@@ -234,9 +240,8 @@
     <i class="bi bi-sunglasses icon" style="left:50%; animation-delay: 2.5s;"></i>
 </div>
 
-<footer class="footer mt-5">
+<footer class="footer mt-5">n
     <div class="container text-center py-3">
-        <p>Visitas totais: <span th:text="${visitas}"></span></p>
         <p>© 2025 OxeMaps. Todos os direitos reservados.</p>
         <p>Conectando histórias, lugares e pessoas através da tecnologia.</p>
         <div class="footer-icons">
