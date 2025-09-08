@@ -170,6 +170,74 @@
 
         .footer a:hover { color: #fbbf24; }
 
+        .lang-dropdown {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1200;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .lang-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563EB);
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .lang-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .lang-options {
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0 0;
+            background: #2563EB;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            overflow: hidden;
+            min-width: 150px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none; /* bloqueia clique quando fechado */
+            position: absolute;
+            right: 0;
+            z-index: 1201;
+        }
+
+        .lang-options.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto; /* libera clique */
+        }
+
+        .lang-options li {
+            padding: 10px 15px;
+            cursor: pointer;
+            color: #fff;
+            transition: background 0.2s;
+        }
+
+        .lang-options li:hover {
+            background: #1e40af;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* RESPONSIVIDADE */
         @media (max-width: 768px) {
             /* Sidebar horizontal no topo */
@@ -208,18 +276,30 @@
 </button>
 
 <div id="sidebar" class="sidebar">
-    <a th:href="@{/}"><i class="bi bi-house-fill"></i> Home</a>
-    <a th:href="@{/faq}"><i class="bi bi-info-circle-fill"></i> Sobre o Projeto (FAQ)</a>
-    <a th:href="@{/contato}"><i class="bi bi-envelope-fill"></i> Contato</a>
+    <a th:href="@{/}"><i class="bi bi-house-fill"></i> <span th:text="#{home}">Home</span></a>
+    <a th:href="@{/faq}"><i class="bi bi-info-circle-fill"></i> <span th:text="#{sobre}">Sobre o Projeto (FAQ)</span></a>
+    <a th:href="@{/contato}"><i class="bi bi-envelope-fill"></i> <span th:text="#{contato}">Contato</span></a>
 </div>
 
+<div class="lang-dropdown">
+    <button class="lang-btn" onclick="toggleLangDropdown()">
+        🌐 <span id="selected-lang"></span> <i class="bi bi-caret-down-fill"></i>
+    </button>
+    <ul class="lang-options" id="lang-options">
+        <li onclick="changeLang('pt')">🇧🇷 Português</li>
+        <li onclick="changeLang('en')">🇺🇸 English</li>
+        <li onclick="changeLang('es')">🇪🇸 Español</li>
+    </ul>
+</div>
+
+
 <div id="main" class="main">
-    <h1>OxeMaps!</h1>
-    <div class="description">Conectando o Passado e o Presente utilizando a tecnologia</div>
+    <h1 th:text="#{titulo}">OxeMaps!</h1>
+    <div class="description" th:text="#{descricao}">Conectando o Passado e o Presente utilizando a tecnologia</div>
     <div class="visitas text-center mt-3">
-    <span class="badge bg-warning text-dark fs-5 shadow">
-        Visitas: <span th:text="${visitas}"></span>
-    </span>
+        <span class="badge bg-warning text-dark fs-5 shadow">
+            <span th:text="#{visitas}">Visitas</span>: <span th:text="${visitas}">0</span>
+        </span>
     </div>
 
 
@@ -257,6 +337,42 @@
         document.getElementById('sidebar').classList.toggle('active');
         document.getElementById('main').classList.toggle('active');
     }
+
+    function toggleLangDropdown() {
+        document.getElementById('lang-options').classList.toggle('show');
+    }
+
+    window.onclick = function(e) {
+        if (!e.target.matches('.lang-btn') && !e.target.closest('.lang-dropdown')) {
+            const dropdown = document.getElementById('lang-options');
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            }
+        }
+    }
+
+    function changeLang(lang) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.location.href = url.toString();
+
+        const selected = document.getElementById('selected-lang');
+        if(lang === 'pt') selected.textContent = 'Português';
+        if(lang === 'en') selected.textContent = 'English';
+        if(lang === 'es') selected.textContent = 'Español';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = urlParams.get('lang') || 'pt'; // padrão PT
+    const selected = document.getElementById('selected-lang');
+
+    switch(lang) {
+        case 'pt': selected.textContent = 'Português 🇧🇷'; break;
+        case 'en': selected.textContent = 'English 🇺🇸'; break;
+        case 'es': selected.textContent = 'Español 🇪🇸'; break;
+    }
+});
 </script>
 
 </body>

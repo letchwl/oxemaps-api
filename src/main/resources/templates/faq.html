@@ -233,49 +233,49 @@
 </button>
 
 <!-- Sidebar -->
-<div id="sidebar" class="sidebar">
-    <a th:href="@{/}"><i class="bi bi-house-fill"></i> Home</a>
-    <a th:href="@{/faq}"><i class="bi bi-info-circle-fill"></i> Sobre o Projeto (FAQ)</a>
-    <a th:href="@{/contato}"><i class="bi bi-envelope-fill"></i> Contato</a>
+<<div id="sidebar" class="sidebar">
+    <a th:href="@{/}"><i class="bi bi-house-fill"></i> <span th:text="#{home}">Home</span></a>
+    <a th:href="@{/faq}"><i class="bi bi-info-circle-fill"></i> <span th:text="#{sobre}">Sobre o Projeto (FAQ)</span></a>
+    <a th:href="@{/contato}"><i class="bi bi-envelope-fill"></i> <span th:text="#{contato}">Contato</span></a>
 </div>
 
 <!-- Conteúdo principal -->
 <div id="main" class="main">
-    <h1>FAQ - OxeMaps</h1>
-    <div class="description">Conectando o Passado e o Presente utilizando a tecnologia</div>
+    <h1 th:text="#{faq_titulo}">FAQ - OxeMaps</h1>
+    <div class="description" th:text="#{faq_descricao}">Conectando o Passado e o Presente utilizando a tecnologia</div>
 
     <div class="faq-container">
         <div class="faq-box">
-            <div class="faq-question">O que é o OxêMaps? <i class="bi bi-caret-right-fill arrow"></i></div>
-            <div class="faq-answer">O OxêMaps é uma plataforma que conecta informações históricas e atuais, permitindo explorar locais e dados de forma interativa e tecnológica.</div>
+            <div class="faq-question" th:text="#{faq_pergunta1}">O que é o OxêMaps? <i class="bi bi-caret-right-fill arrow"></i></div>
+            <div class="faq-answer" th:text="#{faq_resposta1}">O OxêMaps é uma plataforma que conecta informações históricas e atuais, permitindo explorar locais e dados de forma interativa e tecnológica.</div>
         </div>
         <div class="faq-box">
-            <div class="faq-question">Como acessar diferentes cidades? <i class="bi bi-caret-right-fill arrow"></i></div>
-            <div class="faq-answer">Você pode acessar diferentes cidades usando os botões na página inicial.</div>
+            <div class="faq-question" th:text="#{faq_pergunta2}">Como acessar diferentes cidades? <i class="bi bi-caret-right-fill arrow"></i></div>
+            <div class="faq-answer" th:text="#{faq_resposta2}">Você pode acessar diferentes cidades usando os botões na página inicial.</div>
         </div>
         <div class="faq-box">
-            <div class="faq-question">Posso contribuir com informações? <i class="bi bi-caret-right-fill arrow"></i></div>
-            <div class="faq-answer">Sim! O OxêMaps permite que usuários cadastrados enviem dados e sugestões que passam por moderação antes de serem publicados.</div>
+            <div class="faq-question" th:text="#{faq_pergunta3}">Posso contribuir com informações? <i class="bi bi-caret-right-fill arrow"></i></div>
+            <div class="faq-answer" th:text="#{faq_resposta3}">Sim! O OxêMaps permite que usuários cadastrados enviem dados e sugestões que passam por moderação antes de serem publicados.</div>
         </div>
         <div class="faq-box">
-            <div class="faq-question">Como entrar em contato? <i class="bi bi-caret-right-fill arrow"></i></div>
-            <div class="faq-answer">Use a aba "Contato" na sidebar para enviar mensagens diretamente para a equipe do OxêMaps.</div>
+            <div class="faq-question" th:text="#{faq_pergunta4}">Como entrar em contato? <i class="bi bi-caret-right-fill arrow"></i></div>
+            <div class="faq-answer" th:text="#{faq_resposta4}">Use a aba "Contato" na sidebar para enviar mensagens diretamente para a equipe do OxêMaps.</div>
         </div>
         <div class="faq-box">
-            <div class="faq-question">O OxêMaps é gratuito? <i class="bi bi-caret-right-fill arrow"></i></div>
-            <div class="faq-answer">Sim, todos os recursos da plataforma são gratuitos para usuários e visitantes.</div>
+            <div class="faq-question" th:text="#{faq_pergunta5}">O OxêMaps é gratuito? <i class="bi bi-caret-right-fill arrow"></i></div>
+            <div class="faq-answer" th:text="#{faq_resposta5}">Sim, todos os recursos da plataforma são gratuitos para usuários e visitantes.</div>
         </div>
         <div class="faq-box">
-            <div class="faq-question">Funciona em dispositivos móveis? <i class="bi bi-caret-right-fill arrow"></i></div>
-            <div class="faq-answer">Sim! O OxêMaps é totalmente responsivo, podendo ser usado em smartphones, tablets e desktops.</div>
+            <div class="faq-question" th:text="#{faq_pergunta6}">Funciona em dispositivos móveis? <i class="bi bi-caret-right-fill arrow"></i></div>
+            <div class="faq-answer" th:text="#{faq_resposta6}">Sim! O OxêMaps é totalmente responsivo, podendo ser usado em smartphones, tablets e desktops.</div>
         </div>
         <div class="faq-box">
-            <div class="faq-question">Como os dados são verificados? <i class="bi bi-caret-right-fill arrow"></i></div>
-            <div class="faq-answer">Todos os dados enviados por usuários passam por uma moderação interna para garantir a veracidade das informações.</div>
+            <div class="faq-question" th:text="#{faq_pergunta7}">Como os dados são verificados? <i class="bi bi-caret-right-fill arrow"></i></div>
+            <div class="faq-answer" th:text="#{faq_resposta7}">Todos os dados enviados por usuários passam por uma moderação interna para garantir a veracidade das informações.</div>
         </div>
         <div class="faq-box">
-            <div class="faq-question">Como posso sugerir melhorias? <i class="bi bi-caret-right-fill arrow"></i></div>
-            <div class="faq-answer">Você pode enviar sugestões através do formulário de contato ou via e-mail oficial da plataforma.</div>
+            <div class="faq-question" th:text="#{faq_pergunta8}">Como posso sugerir melhorias? <i class="bi bi-caret-right-fill arrow"></i></div>
+            <div class="faq-answer" th:text="#{faq_resposta8}">Você pode enviar sugestões através do formulário de contato ou via e-mail oficial da plataforma.</div>
         </div>
     </div>
 </div>
