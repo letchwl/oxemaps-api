@@ -5,7 +5,8 @@ O OxeMaps é uma plataforma que conecta informações históricas e atuais de ci
 
 ## Tecnologias
 - Java 21
-- Spring Boot  
+- Spring Boot
+- PostgreSQL 17
 - Thymeleaf  
 - Bootstrap 5
 - Leaflet JS
