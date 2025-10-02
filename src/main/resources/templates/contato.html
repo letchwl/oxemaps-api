@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OxeMaps - Contato</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: #3b82f6;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+            margin-left: 0;
+            transition: margin-left 0.4s;
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-top: 50px;
+            font-size: 4rem;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            animation: bounceTitle 2s infinite;
+        }
+
+        @keyframes bounceTitle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .description {
+            color: #fefefe;
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .contact-form label {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+            resize: none;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #e0e0e0;
+        }
+
+        .contact-form button {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        /* Sidebar vertical padrão */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #2563EB;
+            padding-top: 60px;
+            transition: 0.4s;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .sidebar a i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .sidebar a:hover { background-color: #1e40af; border-radius: 8px; }
+        .sidebar.active { left: 0; }
+
+        .open-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            background-color: #2563EB;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 8px;
+            z-index: 1100;
+            transition: 0.3s;
+        }
+
+        .open-btn:hover { background-color: #1e40af; }
+
+                .lang-dropdown {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1200;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .lang-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563EB);
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .lang-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .lang-options {
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0 0;
+            background: #2563EB;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            overflow: hidden;
+            min-width: 150px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none; /* bloqueia clique quando fechado */
+            position: absolute;
+            right: 0;
+            z-index: 1201;
+        }
+
+        .lang-options.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto; /* libera clique */
+        }
+
+        .lang-options li {
+            padding: 10px 15px;
+            cursor: pointer;
+            color: #fff;
+            transition: background 0.2s;
+        }
+
+        .lang-options li:hover {
+            background: #1e40af;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer {
+            background-color: #1e40af;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { top: 0; left: 0; width: 100%; height: auto; flex-direction: row; justify-content: space-around; padding: 10px 0; }
+            .sidebar a { justify-content: center; padding: 8px 5px; font-size: 1rem; }
+            .open-btn { display: none; }
+            #main { margin-left: 0; padding-top: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+<button class="open-btn" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+
+<div id="sidebar" class="sidebar">
+    <a th:href="@{/}"><i class="bi bi-house-fill"></i> <span th:text="#{home}">Home</span></a>
+    <a th:href="@{/faq}"><i class="bi bi-info-circle-fill"></i> <span th:text="#{sobre}">FAQ</span></a>
+    <a th:href="@{/contato}"><i class="bi bi-envelope-fill"></i> <span th:text="#{contato}">Contato</span></a>
+</div>
+
+<div class="lang-dropdown">
+    <button class="lang-btn" onclick="toggleLangDropdown()">
+        🌐 <span id="selected-lang"></span> <i class="bi bi-caret-down-fill"></i>
+    </button>
+    <ul class="lang-options" id="lang-options">
+        <li onclick="changeLang('pt')">🇧🇷 Português</li>
+        <li onclick="changeLang('en')">🇺🇸 English</li>
+        <li onclick="changeLang('es')">🇪🇸 Español</li>
+    </ul>
+</div>
+
+<div id="main" class="main">
+    <h1 th:text="#{contato_titulo}">Contato</h1>
+    <div class="description" th:text="#{contato_descricao}">Entre em contato conosco!</div>
+
+    <div class="contact-form">
+        <form th:action="@{/contato}" method="post">
+            <label for="nome" th:text="#{contato_nome}">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome..." required>
+
+            <label for="email" th:text="#{contato_email}">Email</label>
+            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+
+            <label for="mensagem" th:text="#{contato_mensagem}">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" rows="5" placeholder="Escreva sua mensagem..." required></textarea>
+
+            <button type="submit" th:text="#{contato_enviar}">Enviar</button>
+        </form>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>© 2025 OxeMaps. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('active');
+        document.getElementById('main').classList.toggle('active');
+    }
+
+    function toggleLangDropdown() {
+        document.getElementById('lang-options').classList.toggle('show');
+    }
+
+    function changeLang(lang) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        window.location.href = url.toString();
+    }
+
+    // Atualiza o idioma selecionado
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const lang = urlParams.get('lang') || 'pt';
+        const selected = document.getElementById('selected-lang');
+
+        switch(lang) {
+            case 'pt': selected.textContent = 'Português 🇧🇷'; break;
+            case 'en': selected.textContent = 'English 🇺🇸'; break;
+            case 'es': selected.textContent = 'Español 🇪🇸'; break;
+        }
+    });
+</script>
+</body>
+</html>

@@ -12,6 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- GLightbox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+
 
     <style>
         body {
@@ -261,5 +264,61 @@
         map.setMaxBounds(abreuELima.getBounds());
     });
 </script>
+
+<script>
+    var pracaCoords = [-7.9077, -34.9001];
+    var markerPraca = L.marker(pracaCoords).addTo(map);
+
+    var popupContent = `
+        <div style="text-align:center; width:270px;">
+            <h5>Praça Polivalente</h5>
+
+            <p style="font-size:13px; margin-bottom:8px;">
+                Também chamada <b>Praça da Democracia</b>.
+            </p>
+
+            <!-- Galeria de imagens -->
+            <div style="display:flex; flex-wrap:wrap; gap:5px; justify-content:center;">
+                <a href="/media/abreu-e-lima/estatua1.jpg" class="glightbox" data-gallery="praça">
+                    <img src="/media/abreu-e-lima/estatua1.jpg" style="width:80px; border-radius:5px;">
+                </a>
+                <a href="/media/abreu-e-lima/estatua2.jpg" class="glightbox" data-gallery="praça">
+                    <img src="/media/abreu-e-lima/estatua2.jpg" style="width:80px; border-radius:5px;">
+                </a>
+                <a href="/media/abreu-e-lima/estatua3.jpg" class="glightbox" data-gallery="praça">
+                    <img src="/media/abreu-e-lima/estatua3.jpg" style="width:80px; border-radius:5px;">
+                </a>
+                <a href="/media/abreu-e-lima/estatua4.jpg" class="glightbox" data-gallery="praça">
+                    <img src="/media/abreu-e-lima/estatua4.jpg" style="width:80px; border-radius:5px;">
+                </a>
+                <a href="/media/abreu-e-lima/estatua5.jpg" class="glightbox" data-gallery="praça">
+                    <img src="/media/abreu-e-lima/estatua5.jpg" style="width:80px; border-radius:5px;">
+                </a>
+                <a href="/media/abreu-e-lima/maricota.jpg" class="glightbox" data-gallery="praça">
+                    <img src="/media/abreu-e-lima/maricota.jpg" style="width:80px; border-radius:5px;">
+                </a>
+                <a href="/media/abreu-e-lima/mensagem.jpg" class="glightbox" data-gallery="praça">
+                    <img src="/media/abreu-e-lima/mensagem.jpg" style="width:80px; border-radius:5px;">
+                </a>
+            </div>
+        </div>
+    `;
+
+    markerPraca.bindPopup(popupContent);
+
+    // Inicializa o lightbox
+    const lightbox = GLightbox({
+        selector: '.glightbox'
+    });
+</script>
+
+<!-- GLightbox JS -->
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+    const lightbox = GLightbox({
+        selector: '.glightbox'
+    });
+</script>
+
 </body>
 </html>
