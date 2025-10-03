@@ -4,11 +4,12 @@
 O OxeMaps é uma plataforma que conecta informações históricas e atuais de cidades do Nordeste, permitindo explorar locais e dados de forma interativa e tecnológica.
 
 ## Tecnologias
-- Spring Boot  
+- Java 21
+- Spring Boot
+- PostgreSQL 17
 - Thymeleaf  
-- Bootstrap 5  
-- Bootstrap Icons  
-- Google Fonts (Fredoka One)  
+- Bootstrap 5
+- Leaflet JS
 - HTML, CSS, JavaScript  
 
 ## Autor
