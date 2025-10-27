@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igreja de Nossa Senhora do Livramento - Igarassu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #3b82f6;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin: 15px 0;
+            color: #fff;
+            background: #2563EB;
+            padding: 8px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover { background: #1e40af; }
+
+        .description, .faq-section, .gallery-section {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .description p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .gallery-section img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .gallery-section img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+
+        .faq-section h4 {
+            margin-top: 15px;
+            color: #ffde59;
+        }
+
+        /* Fullscreen imagem */
+        #fullscreen-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        #fullscreen-overlay img {
+            max-width: 95%;
+            max-height: 90%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="/cidades/igarassu" class="back-btn"><i class="bi bi-arrow-left"></i> Voltar ao mapa</a>
+    <h1>Igreja de Nossa Senhora do Livramento</h1>
+
+    <div class="description">
+        <p>
+            Localizada no coração de Igarassu, a <b>Igreja de Nossa Senhora do Livramento</b> é um dos templos mais antigos e simbólicos de Pernambuco.
+            Erguida no século XVII, a igreja representa a devoção e a arquitetura barroca que marcam a identidade histórica da cidade.
+        </p>
+        <p>
+            Além de seu valor religioso, o local é conhecido por sua beleza arquitetônica e pela atmosfera de paz que atrai fiéis e turistas.
+            Suas missas e festas religiosas fazem parte da tradição local, preservando costumes e memórias que atravessam gerações.
+        </p>
+    </div>
+
+    <div class="gallery-section">
+        <h3>Galeria</h3>
+        <img src="/media/igarassu/igreja-nossa-senhora-do-livramento/igreja.jpg" onclick="openImage(this.src)">
+    </div>
+
+    <div class="faq-section">
+        <h3>Perguntas Frequentes</h3>
+        <h4>Quando a igreja foi construída?</h4>
+        <p>Acredita-se que sua construção tenha ocorrido no final do século XVII, durante o período colonial.</p>
+
+        <h4>É possível visitar a igreja?</h4>
+        <p>Sim, a igreja está aberta para visitação, especialmente durante missas e celebrações religiosas.</p>
+
+        <h4>Há custos para entrada?</h4>
+        <p>Não. A entrada é gratuita, mas doações voluntárias são bem-vindas para ajudar na conservação do templo.</p>
+
+        <h4>O local é acessível para turistas?</h4>
+        <p>Sim, o acesso é fácil e há estacionamentos próximos. É um ótimo ponto para quem deseja conhecer o centro histórico de Igarassu.</p>
+    </div>
+</div>
+
+<div id="fullscreen-overlay" onclick="closeImage()">
+    <img id="fullscreen-img" src="">
+</div>
+
+<script>
+    function openImage(src) {
+        document.getElementById('fullscreen-img').src = src;
+        document.getElementById('fullscreen-overlay').style.display = 'flex';
+    }
+    function closeImage() {
+        document.getElementById('fullscreen-overlay').style.display = 'none';
+    }
+</script>
+</body>
+</html>

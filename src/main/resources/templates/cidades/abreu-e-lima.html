@@ -314,36 +314,31 @@
     });
 
     // Coordenadas da Praça
-    var pracaCoords = [-7.9077, -34.9001];
-    var markerPraca = L.marker(pracaCoords).addTo(map);
+        var pracaCoords = [-7.9077, -34.9001];
+        var markerPraca = L.marker(pracaCoords).addTo(map);
 
-    var popupContent = `
-        <div style="text-align:center; width:270px;">
-            <h5>Praça Polivalente</h5>
-            <p style="font-size:13px; margin-bottom:8px;">
-                Também chamada <b>Praça da Democracia</b>.
-            </p>
-            <div class="popup-gallery">
-                <img src="/media/abreu-e-lima/estatua1.jpg" onclick="openImage(this.src)">
-                <img src="/media/abreu-e-lima/estatua2.jpg" onclick="openImage(this.src)">
-                <img src="/media/abreu-e-lima/estatua3.jpg" onclick="openImage(this.src)">
-                <img src="/media/abreu-e-lima/estatua4.jpg" onclick="openImage(this.src)">
-                <img src="/media/abreu-e-lima/estatua5.jpg" onclick="openImage(this.src)">
-                <img src="/media/abreu-e-lima/maricota.jpg" onclick="openImage(this.src)">
-                <img src="/media/abreu-e-lima/mensagem.jpg" onclick="openImage(this.src)">
+        var popupContent = `
+            <div style="text-align:center; width:270px;">
+                <h5>Praça da Democracia</h5>
+                <p style="font-size:13px; margin-bottom:8px;">
+                    Espaço histórico e cultural de Abreu e Lima, ponto de encontro da comunidade.
+                </p>
+                <img src="/media/abreu-e-lima/estatua1.jpg" style="width:120px; border-radius:10px; cursor:pointer;" onclick="openImage(this.src)">
+                <br><br>
+                <a href="/abreu-e-lima/praca-democracia" style="display:inline-block; padding:6px 12px; background:#2563EB; color:#fff; border-radius:6px; text-decoration:none; font-size:0.9rem;">Ver Mais</a>
             </div>
-        </div>
-    `;
-    markerPraca.bindPopup(popupContent);
+        `;
 
-    // Fullscreen imagem
-    function openImage(src) {
-        document.getElementById('fullscreen-img').src = src;
-        document.getElementById('fullscreen-overlay').style.display = 'flex';
-    }
-    function closeImage() {
-        document.getElementById('fullscreen-overlay').style.display = 'none';
-    }
+        markerPraca.bindPopup(popupContent);
+
+        // Fullscreen imagem
+        function openImage(src) {
+            document.getElementById('fullscreen-img').src = src;
+            document.getElementById('fullscreen-overlay').style.display = 'flex';
+        }
+        function closeImage() {
+            document.getElementById('fullscreen-overlay').style.display = 'none';
+        }
 
     // Fullscreen mapa
     function toggleMapFullscreen() {

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobrado do Imperador - Igarassu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #3b82f6;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #fff;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin: 15px 0;
+            color: #fff;
+            background: #2563EB;
+            padding: 8px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover { background: #1e40af; }
+
+        .description, .faq-section, .gallery-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .description p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .gallery-section img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .gallery-section img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+
+        .faq-section h4 {
+            margin-top: 15px;
+            color: #ffd700;
+        }
+
+        /* Fullscreen imagem */
+        #fullscreen-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        #fullscreen-overlay img {
+            max-width: 95%;
+            max-height: 90%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="/cidades/igarassu" class="back-btn"><i class="bi bi-arrow-left"></i> Voltar ao mapa</a>
+    <h1>Sobrado do Imperador</h1>
+
+    <div class="description">
+        <p>
+            O <b>Sobrado do Imperador</b> é um dos marcos mais importantes de Igarassu. Construído no século XIX,
+            o prédio recebeu o <b>Imperador Dom Pedro II</b> e a <b>Imperatriz Teresa Cristina</b> em 1859,
+            durante uma visita histórica ao estado de Pernambuco.
+        </p>
+        <p>
+            Com sua arquitetura colonial preservada, o sobrado é um símbolo da importância política e cultural de Igarassu
+            no período imperial. Atualmente, é um ponto turístico e espaço de eventos culturais, abrigando exposições e
+            atividades educativas que recontam a história da cidade.
+        </p>
+    </div>
+
+    <div class="gallery-section">
+        <h3>Galeria</h3>
+        <img src="/media/igarassu/sobrado-do-imperador/sobrado-imperador.jpg" onclick="openImage(this.src)">
+        <img src="/media/igarassu/sobrado-do-imperador/sobrado-imperador1.png" onclick="openImage(this.src)">
+    </div>
+
+    <div class="faq-section">
+        <h3>Perguntas Frequentes</h3>
+
+        <h4>O Sobrado do Imperador está aberto para visitação?</h4>
+        <p>Sim, o local está aberto ao público em dias úteis, das 9h às 16h.</p>
+
+        <h4>Há cobrança de entrada?</h4>
+        <p>Não. A visita é gratuita, mas guias locais podem oferecer tours pagos.</p>
+
+        <h4>O que há dentro do sobrado?</h4>
+        <p>O interior abriga exposições históricas, móveis da época e registros da passagem do Imperador por Pernambuco.</p>
+    </div>
+</div>
+
+<div id="fullscreen-overlay" onclick="closeImage()">
+    <img id="fullscreen-img" src="">
+</div>
+
+<script>
+    function openImage(src) {
+        document.getElementById('fullscreen-img').src = src;
+        document.getElementById('fullscreen-overlay').style.display = 'flex';
+    }
+    function closeImage() {
+        document.getElementById('fullscreen-overlay').style.display = 'none';
+    }
+</script>
+</body>
+</html>

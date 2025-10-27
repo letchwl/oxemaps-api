@@ -127,34 +127,65 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
 
+        /* Fullscreen mapa */
+        #map.fullscreen {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 9000 !important;
+        }
+
+        /* Botão flutuante fullscreen */
+        #fullscreen-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #2563EB;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 9500;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            transition: background 0.2s ease;
+        }
+        #fullscreen-btn:hover { background: #1e40af; }
+
+        /* Overlay fullscreen da imagem */
+        #fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        #fullscreen-overlay img {
+            max-width: 95%;
+            max-height: 90%;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsivo */
         @media (max-width: 768px) {
-            .sidebar {
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: auto;
-                flex-direction: row;
-                justify-content: space-around;
-                padding: 10px 0;
-                box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            }
-
-            .sidebar a {
-                justify-content: center;
-                padding: 8px 5px;
-                font-size: 1rem;
-            }
-
-            .open-btn {
-                display: none;
-            }
-
-            #main {
-                margin-left: 0;
-                padding-top: 70px;
-            }
-
             #map { height: 300px; }
+            .sidebar { width: 100%; height: auto; flex-direction: row; justify-content: space-around; padding: 10px 0; }
+            .sidebar a { justify-content: center; padding: 8px 5px; font-size: 1rem; }
+            .open-btn { display: none; }
         }
     </style>
 </head>
@@ -175,6 +206,12 @@
     <div class="description">Mapa de Igarassu</div>
 
     <div id="map"></div>
+    <button id="fullscreen-btn" onclick="toggleMapFullscreen()">🗺️ Tela Cheia</button>
+</div>
+
+<!-- Overlay para fullscreen da imagem -->
+<div id="fullscreen-overlay" onclick="closeImage()">
+    <img id="fullscreen-img" src="">
 </div>
 
 <footer class="footer mt-5">
@@ -199,26 +236,166 @@
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Carrega o GeoJSON de Igarassu
+    // GeoJSON de Igarassu
     var igarassu = new L.GeoJSON.AJAX('/cidades/igarassu.geojson', {
-        style: function (feature) {
-            return {
-                color: 'green',
-                weight: 2,
-                opacity: 1,
-                fillColor: 'green',
-                fillOpacity: 0.2
-            };
+        style: function(feature) {
+            return { color: 'green', weight: 2, opacity: 1, fillColor: 'green', fillOpacity: 0.2 };
         }
     }).addTo(map).on('data:loaded', function() {
         map.fitBounds(this.getBounds());
         map.setMaxBounds(this.getBounds());
     });
 
-    igarassu.on('data:loaded', function() {
-        map.fitBounds(igarassu.getBounds());
-        map.setMaxBounds(igarassu.getBounds());
-    });
+    // Câmara Municipal de Igarassu
+    var camaraCoords = [-7.8352596, -34.9063195];
+    var markerCamara = L.marker(camaraCoords).addTo(map);
+
+    var popupContentCamara = `
+        <div style="text-align:center; width:270px;">
+            <h5>Câmara Municipal de Igarassu</h5>
+            <p style="font-size:13px; margin-bottom:8px;">
+                Patrimônio histórico do município, marco da história e cultura local.
+            </p>
+            <img src="/media/igarassu/camara-municipal/camara-municipal.jpeg"
+                 style="width:120px; border-radius:10px; cursor:pointer;"
+                 onclick="openImage(this.src)">
+            <br><br>
+            <a href="/igarassu/camara-municipal"
+               style="display:inline-block; padding:6px 12px; background:#2563EB; color:#fff; border-radius:6px; text-decoration:none; font-size:0.9rem;">
+               Ver Mais
+            </a>
+        </div>
+    `;
+    markerCamara.bindPopup(popupContentCamara);
+
+    // Fullscreen imagem
+    function openImage(src) {
+        document.getElementById('fullscreen-img').src = src;
+        document.getElementById('fullscreen-overlay').style.display = 'flex';
+    }
+    function closeImage() {
+        document.getElementById('fullscreen-overlay').style.display = 'none';
+    }
+
+    // Fullscreen mapa
+    function toggleMapFullscreen() {
+        var mapEl = document.getElementById("map");
+        mapEl.classList.toggle("fullscreen");
+        setTimeout(() => { map.invalidateSize(); }, 300);
+    }
+
+    // Coordenadas do Centro de Artes de Igarassu
+    var centroArtesCoords = [-7.8320078, -34.9081273];
+    var markerCentroArtes = L.marker(centroArtesCoords).addTo(map);
+
+    var popupContentCentroArtes = `
+        <div style="text-align:center; width:270px;">
+            <h5>Centro de Artes de Igarassu</h5>
+            <p style="font-size:13px; margin-bottom:8px;">
+                Espaço cultural para exposições, oficinas e apresentações artísticas, promovendo a cultura local.
+            </p>
+            <img src="/media/igarassu/centro-de-artes/centro-artes.jpg"
+                 style="width:120px; border-radius:10px; cursor:pointer;"
+                 onclick="openImage(this.src)">
+            <br><br>
+            <a href="/igarassu/centro-artes"
+               style="display:inline-block; padding:6px 12px; background:#2563EB; color:#fff; border-radius:6px; text-decoration:none; font-size:0.9rem;">
+               Ver Mais
+            </a>
+        </div>
+    `;
+
+    markerCentroArtes.bindPopup(popupContentCentroArtes);
+
+    // Fullscreen imagem
+    function openImage(src) {
+        document.getElementById('fullscreen-img').src = src;
+        document.getElementById('fullscreen-overlay').style.display = 'flex';
+    }
+    function closeImage() {
+        document.getElementById('fullscreen-overlay').style.display = 'none';
+    }
+
+    // Coordenadas da Igreja e Convento de Santo Antônio
+    var santoAntonioCoords = [-7.8325, -34.905];
+    var markerSantoAntonio = L.marker(santoAntonioCoords).addTo(map);
+
+    var popupContentSantoAntonio = `
+        <div style="text-align:center; width:270px;">
+            <h5>Igreja e Convento de Santo Antônio</h5>
+            <p style="font-size:13px; margin-bottom:8px;">
+                Patrimônio histórico e religioso de Igarassu, datado do período colonial.
+                Destaca-se pela arquitetura barroca e importância cultural.
+            </p>
+            <img src="/media/igarassu/convento-de-santo-antonio/igreja.jpg"
+                 style="width:120px; border-radius:10px; cursor:pointer;"
+                 onclick="openImage(this.src)">
+            <br><br>
+            <a href="/igarassu/convento-santo-antonio"
+               style="display:inline-block; padding:6px 12px; background:#2563EB; color:#fff; border-radius:6px; text-decoration:none; font-size:0.9rem;">
+               Ver Mais
+            </a>
+        </div>
+    `;
+
+    markerSantoAntonio.bindPopup(popupContentSantoAntonio);
+
+    // Funções de fullscreen da imagem já existentes
+    function openImage(src) {
+        document.getElementById('fullscreen-img').src = src;
+        document.getElementById('fullscreen-overlay').style.display = 'flex';
+    }
+    function closeImage() {
+        document.getElementById('fullscreen-overlay').style.display = 'none';
+    }
+
+    // Coordenadas da Igreja de Nossa Senhora do Livramento (Igarassu)
+    var igrejaCoords = [-7.8330882, -34.906585];
+    var markerIgreja = L.marker(igrejaCoords).addTo(map);
+
+    var popupIgreja = `
+        <div style="text-align:center; width:270px;">
+            <h5>Igreja de Nossa Senhora do Livramento</h5>
+            <p style="font-size:13px; margin-bottom:8px;">
+                Construída durante o período colonial, é um dos mais importantes marcos religiosos de Igarassu,
+                conhecida por sua beleza arquitetônica e valor histórico.
+            </p>
+            <img src="/media/igarassu/igreja-nossa-senhora-do-livramento/igreja.jpg"
+                 style="width:120px; border-radius:10px; cursor:pointer;"
+                 onclick="openImage(this.src)">
+            <br><br>
+            <a href="/igarassu/igreja-livramento"
+               style="display:inline-block; padding:6px 12px; background:#2563EB; color:#fff;
+                      border-radius:6px; text-decoration:none; font-size:0.9rem;">
+               Ver Mais
+            </a>
+        </div>
+    `;
+    markerIgreja.bindPopup(popupIgreja);
+
+    // Coordenadas do Sobrado do Imperador (Igarassu)
+    var sobradoCoords = [-7.8348664, -34.9066703];
+    var markerSobrado = L.marker(sobradoCoords).addTo(map);
+
+    var popupSobrado = `
+        <div style="text-align:center; width:270px;">
+            <h5>Sobrado do Imperador</h5>
+            <p style="font-size:13px; margin-bottom:8px;">
+                Construído no século XIX, o Sobrado do Imperador é um dos edifícios históricos mais marcantes
+                de Igarassu, conhecido por ter hospedado Dom Pedro II em sua visita à cidade.
+            </p>
+            <img src="/media/igarassu/sobrado-do-imperador/sobrado-imperador1.png"
+                 style="width:120px; border-radius:10px; cursor:pointer;"
+                 onclick="openImage(this.src)">
+            <br><br>
+            <a href="/igarassu/sobrado-imperador"
+               style="display:inline-block; padding:6px 12px; background:#2563EB; color:#fff;
+                      border-radius:6px; text-decoration:none; font-size:0.9rem;">
+               Ver Mais
+            </a>
+        </div>
+    `;
+    markerSobrado.bindPopup(popupSobrado);
 </script>
 </body>
 </html>
